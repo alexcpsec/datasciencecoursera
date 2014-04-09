@@ -1,0 +1,46 @@
+## Quiz1.Rmd
+
+Load the dataset
+`````{r}
+dataset = read.csv("hw1_data.csv", header=T)
+`````
+Question 11
+``````{r}
+names(dataset)
+``````
+Question 12
+``````{r}
+dataset[1:2,]
+``````
+Question 13
+``````{r}
+nrow(dataset)
+``````
+Question 14
+``````{r}
+dataset[(nrow(dataset)-1):nrow(dataset),]
+``````
+Question 15
+``````{r}
+dataset[47,"Ozone"]
+``````
+Question 16
+``````{r}
+sum(is.na(dataset[,"Ozone"]))
+``````
+Question 17
+``````{r}
+mean(dataset[,"Ozone"], na.rm=T)
+``````
+Question 18
+``````{r}
+mean(dataset[(dataset$Ozone > 31 & dataset$Temp > 90),]$Solar.R, na.rm=T)
+``````
+Question 19
+``````{r}
+mean(dataset[dataset$Month == 6,]$Temp, na.rm=T)
+``````
+Question 20
+``````{r}
+max(dataset[dataset$Month == 5,]$Ozone, na.rm=T)
+``````
