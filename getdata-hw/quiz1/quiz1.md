@@ -1,0 +1,92 @@
+Getting and Cleaning data - Quiz 1
+========================================================
+
+Soutions for the Quiz 1 questions:
+
+
+```r
+if (grepl(getwd(), "quiz1$") == FALSE) {
+    setwd(paste0(getwd(), "/quiz1"))
+}
+```
+
+```
+## Error: cannot change working directory
+```
+
+      
+## Question 1
+
+```r
+filename = "question1_file.csv"
+if (!file.exists(filename)) {
+    retval = download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Fss06hid.csv", 
+        destfile = filename, method = "curl")
+}
+housing = read.csv(filename, header = T)
+sum(housing$VAL == 24, na.rm = T)
+```
+
+```
+## [1] 53
+```
+
+
+## Question 3
+
+```r
+library(xlsx, quietly = T)
+filename = "question3_file.xlsx"
+if (!file.exists(filename)) {
+    retval = download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FDATA.gov_NGAP.xlsx", 
+        destfile = filename, method = "curl")
+}
+dat = read.xlsx(filename, sheetIndex = 1, header = TRUE, rowIndex = 18:23, colIndex = 7:15)
+sum(dat$Zip * dat$Ext, na.rm = T)
+```
+
+```
+## [1] 36534720
+```
+
+
+## Question 4
+
+```r
+library(XML, quietly = T)
+filename = "question4_file.xml"
+if (!file.exists(filename)) {
+    retval = download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Frestaurants.xml", 
+        destfile = filename, method = "curl")
+}
+xmlTree = xmlTreeParse(filename, useInternalNodes = T)
+rootNode = xmlRoot(xmlTree)
+zipcodes = xpathSApply(rootNode, "//zipcode", xmlValue)
+sum(zipcodes == "21231")
+```
+
+```
+## [1] 127
+```
+
+
+## Question 5
+
+```r
+library(data.table, quietly = T)
+filename = "question5_file.csv"
+if (!file.exists(filename)) {
+    retval = download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Fss06pid.csv", 
+        destfile = filename, method = "curl")
+}
+
+DT = fread(filename)
+DT[, mean(pwgtp15), by = SEX]
+```
+
+```
+##    SEX    V1
+## 1:   1 99.81
+## 2:   2 96.67
+```
+
