@@ -1,8 +1,6 @@
 Getting and Cleaning Data - Peer Assessment
 ===========================================
 
-[Wrapping this up, please return in a couple of hours]
-
 Usage
 -----
 Use the `run_analysis.R` script to create the tidy data output files. The Samsung dataset must be copied to the same working directory as the script without any change of the directory structure.

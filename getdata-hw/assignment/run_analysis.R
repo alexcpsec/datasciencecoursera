@@ -52,10 +52,14 @@ write.csv(activity.data, file="tidy_data.txt", row.names=F)
 activity.data[, ActivityName := factor(ActivityName)]
 activity.data[, SubjectId := factor(SubjectId)]
 
-# for (column in colnames(activity.data)) {
-#   if (column %in% c("SubjectId", "ActivityName")) next
-#   summary.col = tapply(activity.data[[column]], list(activity.data$SubjectId, activity.data$ActivityName), mean)
-# }
-# 
-# summary.data = tapply(activity.data, list(activity.data$SubjectId, activity.data$ActivityName), mean)
+for (column in colnames(activity.data)) {
+   if (column %in% c("SubjectId", "ActivityName")) next
+   summary.data = copy(activity.data)
+   summary.data[, column := mean(summary.data[[column]]), by=c("SubjectId", "ActivityName"), with=F]
+}
+rm(column, features.all, features.X, is.mean, is.std, selected.features)
 
+summary.data = unique(summary.data, by=c("SubjectId", "ActivityName"))
+write.csv(summary.data, file="summary_data.txt", row.names=F)
+
+rm(activities.df, all.data, features.df, selected.data)
