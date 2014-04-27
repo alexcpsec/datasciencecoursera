@@ -12,5 +12,5 @@ The R environment must have the `data.table` package installed
 Output
 ------
 The scripts creates two files upon being run:
-* tidy_data.txt - which has the tidy dataset as required by the project
-* summary_data.txt - which has the second, independent tidy data set with the average of each variable for each activity and each subject
+* `tidy_data.txt` - CSV file which has the tidy dataset as required by the project
+* `summary_data.txt` - CSV file which has the second, independent tidy data set with the average of each variable for each activity and each subject
