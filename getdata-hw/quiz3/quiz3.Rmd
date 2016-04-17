@@ -1,0 +1,80 @@
+Getting and Cleaning data - Quiz 3
+========================================================
+  
+Soutions for the Quiz 3 questions:
+  
+```{r}
+if (grepl("quiz3$", getwd()) == FALSE) {
+  setwd(paste0(getwd(), "/quiz3"))
+}
+```
+
+## Question 1
+```{r}
+filename = "question1_file.csv"
+if (!file.exists(filename)) {
+  retval = download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Fss06hid.csv",
+                         destfile = filename,
+                         method = "curl")
+}
+household = read.csv(filename, header=T)
+is.household.acr = (household$ACR == 3)
+is.household.ags = (household$AGS == 6)
+agricultureLogical = is.household.acr & is.household.ags
+which(agricultureLogical)
+```
+
+## Question 2
+```{r}
+library(jpeg)
+filename = "question2_file.jpg"
+if (!file.exists(filename)) {
+  retval = download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fjeff.jpg",
+                         destfile = filename,
+                         method = "curl")
+}
+jeff.pic = readJPEG(filename, native=T)
+quantile(jeff.pic, probs=c(0.3,0.8))
+```
+
+## Question 3
+```{r}
+filenameGDP = "question3_file_gdp.csv"
+if (!file.exists(filenameGDP)) {
+  retval = download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FGDP.csv",
+                         destfile = filenameGDP,
+                         method = "curl")
+}
+filenameEDU = "question3_file_edu.csv"
+if (!file.exists(filenameEDU)) {
+  retval = download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FEDSTATS_Country.csv",
+                         destfile = filenameEDU,
+                         method = "curl")
+}
+
+df.gdp = read.csv(filenameGDP, header=F, skip=5, na.strings=c("",".."))
+df.gdp = df.gdp[!is.na(df.gdp$V2),]
+df.gdp = df.gdp[1:190,]
+df.gdp$V1 <- as.character(df.gdp$V1)
+df.gdp$V5 <- as.character(df.gdp$V5)
+df.gdp$V5 <- as.numeric(gsub("[ ,]", "", df.gdp$V5))
+df.gdp$V2 <- as.numeric(as.character(df.gdp$V2))
+
+df.edu = read.csv(filenameEDU, header=T)
+df.edu$CountryCode <- as.character(df.edu$CountryCode)
+
+df.full = merge(df.gdp, df.edu, by.x="V1", by.y="CountryCode", all = F)
+df.full = df.full[order(df.full$V2, decreasing=T),]
+head(df.full, n=13)$Short.Name
+```
+
+## Question 4
+```{r}
+tapply(df.full$V2, df.full$Income.Group, mean)
+```
+
+## Question 5
+```{r}
+df.full$quant <- df.full$V2 %/% 39
+table(df.full$quant, df.full$Income.Group)
+```

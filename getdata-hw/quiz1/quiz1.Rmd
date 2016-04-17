@@ -4,7 +4,7 @@ Getting and Cleaning data - Quiz 1
 Soutions for the Quiz 1 questions:
 
 ```{r}
-if (grepl(getwd(), "quiz1$") == FALSE) {
+if (grepl("quiz1$", getwd()) == FALSE) {
   setwd(paste0(getwd(), "/quiz1"))
 }
 ```

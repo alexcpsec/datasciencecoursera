@@ -1,0 +1,33 @@
+---
+title: "Coursera - R Programming - Quiz 3"
+author: "Alex Pinto"
+date: "April 27, 2014"
+output: html_document
+---
+
+###Question 1:
+```{r}
+library(datasets)
+data(iris)
+mean(iris[iris$Species=="virginica",]$Sepal.Length)
+```
+
+###Question2:
+```{r}
+apply(iris[, 1:4], 2, mean)
+```
+
+###Question3:
+```{r}
+library(datasets)
+data(mtcars)
+sapply(split(mtcars$mpg, mtcars$cyl), mean)
+```
+
+###Question4:
+```{r}
+resp = sapply(split(mtcars$hp, mtcars$cyl), mean)
+resp[3] - resp[1]
+```
+
+

@@ -1,0 +1,21 @@
+---
+title: "Coursera - R Programming - Quiz 4"
+author: "Alex Pinto"
+date: "May 3, 2014"
+output: html_document
+---
+
+###Question 1:
+```{r}
+set.seed(1)
+rpois(5, 2)
+```
+
+###Question 5:
+```{r}
+set.seed(10)
+x <- rbinom(10, 10, 0.5)
+e <- rnorm(10, 0, 20)
+y <- 0.5 + 2 * x + e
+```
+
